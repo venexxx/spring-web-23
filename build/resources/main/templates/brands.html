@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+       <meta charset="UTF-8">
+    <title>AutoSeller</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+    <nav th:replace="~{fragments/navbar}"></nav>
+</div>
+
+<div class="container">
+    <h2 class="text-center text-white m-3">All Brands</h2>
+    <div class='row mb-4 d-flex justify-content-around brand-container'>
+        <div class="brand-section col-md-3.5 mr-10 d-flex flex-column brand rounded border border-danger ">
+            <h2>Car brands:</h2>
+            <div>
+                <table th:each="brand : ${carBrands}">
+                    <tr>
+
+                        <th class="brand-name"> Brand name: <th:block th:text="${brand.getName()}"></th:block></th>
+                        <th><img alt="image" th:src="${brand.getImageURL()}"
+                                 class="img-thumbnail rounded  "></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div   class="brand-section col-md-3.5 mr-10 d-flex flex-column brand rounded border border-danger ">
+            <h2>Truck brands:</h2>
+            <div>
+                <table th:each="brand : ${truckBrands}">
+                    <tr>
+
+                        <th class="brand-name"> Brand name: <th:block th:text="${brand.getName()}"></th:block></th>
+                        <th><img alt="image" th:src="${brand.getImageURL()}"
+                                 class="img-thumbnail rounded  "></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div   class="brand-section col-md-3.5 mr-10 d-flex flex-column brand rounded border border-danger ">
+            <h2>Motorcycle brands:</h2>
+            <div>
+                <table th:each="brand : ${motorcycleBrands}">
+                    <tr>
+
+                        <th class="brand-name"> Brand name: <th:block th:text="${brand.getName()}"></th:block></th>
+                        <th><img alt="image" th:src="${brand.getImageURL()}"
+                                 class="img-thumbnail rounded  "></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+             <footer> </footer>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AutoSeller</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+
+</div>
+
+
+<div class="container-fluid "></div>
+
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<div class="container-fluid d-flex flex-row row">
+
+<div class="card m-auto">
+
+    <div class="imgBox">
+        <img src="https://www.freepnglogos.com/uploads/car-png/car-png-transparent-car-images-pluspng-0.png" alt="mouse corsair" class="mouse img-thumbnail">
+    </div>
+
+    <div class="contentBox">
+        <h3>Cars</h3>
+
+        <a href="/offers/add-car" class="buy">Add Car</a>
+    </div>
+
+</div>
+    <div class="card  m-auto">
+
+        <div class="imgBox">
+            <img src="https://packer.searates.com/images/main-truck.png" alt="mouse corsair" class="mouse img-thumbnail">
+        </div>
+
+        <div class="contentBox">
+            <h3>Trucks</h3>
+
+            <a href="/offers/add-truck" class="buy">Add Truck</a>
+        </div>
+
+    </div>
+    <div class="card  m-auto">
+
+        <div class="imgBox">
+            <img src="https://i.pinimg.com/originals/57/14/97/5714979a98ebbabe5c49092ca75f6236.png" alt="mouse corsair" class="mouse img-thumbnail">
+        </div>
+
+        <div class="contentBox">
+            <h3>Motorcycles</h3>
+
+            <a href="/offers/add-motorcycle" class="buy">Add Motorcycle</a>
+        </div>
+
+    </div>
+<div>
+    <footer> </footer>
+</div>
+</div>
+
+</body>
+</html>

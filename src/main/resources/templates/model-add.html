@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AutoSeller</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+    <nav th:replace="~{fragments/navbar}"></nav>
+</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white">Upload Brand</h2>
+    <form th:action="@{/model/add}"
+          th:method="post"
+          th:object="${addModelDTO}"
+
+          class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+
+        <div class="form-group col-md-10 mb-3 p-lg-0 m-auto">
+            <label class="text-white font-weight-bold" for="modelName">Model Name</label>
+            <textarea th:field="*{name}"
+                      th:errorclass="'is-invalid bg-danger'"
+                      id="modelName"
+                      name="modelName"
+                      type="textarea"
+                      class="form-control"
+                      rows="1"
+                      placeholder="Model Name: e90"></textarea>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors alert alert-danger">
+                Model Name is required.
+            </p>
+        </div>
+
+        <div class="form-group col-md-10 p-lg-0  ml-auto  mr-auto ">
+            <label class="text-center text-white font-weight-bold" for="brand">Brand</label>
+            <select th:field="*{brand}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="brand"
+                    name="brand"
+                    class="form-control">
+                <option value="">- Select a Brand -</option>
+                <optgroup th:each="brandCategory : ${brands}"  th:label="${brandCategory.getCategory()}" >
+
+                    <option th:each="brandName : ${brandCategory.getBrands()}" th:text="${brandName.getName()}"  th:value="|${brandName.getName()}  ${brandCategory.getCategory()}|">
+                    </option>
+
+                </optgroup>
+            </select>
+
+            <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class=" alert alert-danger">
+                Vechicle model is required.
+            </p>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
+                </div>
+            </div>
+            </div>
+
+    </form>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>

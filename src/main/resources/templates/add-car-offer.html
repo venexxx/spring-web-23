@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AutoSeller</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+    <nav th:replace="~{fragments/navbar}"></nav>
+</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white">Upload Offer</h2>
+    <form  th:action="@{/offers/add-car}"
+           th:method="post"
+           th:object="${offerAddDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="brand">Brand</label>
+                <select
+                        id="brand"
+                        th:field="*{model}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        name="model"
+                        class="form-control">
+                    <option value="">- Select a brand -</option>
+
+                    <optgroup
+                            th:each="brand: ${carBrands}"
+                            th:label="${brand.getName()}">
+                        <option th:each="modelName : ${brand.getModels()}"  th:value="|${brand.getName()} ${modelName} |" th:text="${modelName}" >
+
+                        </option>
+
+                    </optgroup>
+
+                </select>
+
+                <p th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="errors alert alert-danger">
+                    Vechicle model is required.
+                </p>
+            </div>
+        <div class="form-group col-md-6 mb-3">
+            <label class="text-center text-white font-weight-bold" for="euroStandard">Euro Standard</label>
+            <select id="euroStandard"
+                    th:field="*{standard}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    name="standard"
+                    class="form-control">
+                <option value="">- Select a standard -</option>
+
+                <option th:each="standard : ${standards}" th:text="${standard.getName()}" th:value="${standard.getStandard()}">
+
+                </option>
+
+            </select>
+            <p th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}" class="invalid-feedback errors alert alert-danger">
+                Vechicle model is required.
+            </p>
+        </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="price" class="text-white font-weight-bold">Price in BGN</label>
+                <input th:field="*{price}"
+                       th:errorclass="'is-invalid bg-danger'"
+                        id="price"
+                       name="price"
+                       type="number"
+                       min="0"
+                       step="0.1"
+                       class="form-control"
+                       placeholder="Suggested price"/>
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"  class="errors alert alert-danger">
+                    Suggested price is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <div  class="text-white font-weight-bold">Condition</div>
+                <div class="row mt-3  ml-2 d-flex flex-row">
+                    <div th:each="condition : ${conditions}">
+                        <input th:field="*{conditionName}"
+                               th:errorclass="'is-invalid bg-danger'"
+                               id="condition"
+                               name="conditionName"
+                               type="radio"
+                               class="form-check-inline"
+                               th:value="${condition.getCondition()}" />
+
+                        <label class="text-white font-weight-bold mr-4" for="condition" th:text="${condition.getName()}"></label>
+
+                    </div>
+                    <p th:if="${#fields.hasErrors('conditionName')}" th:errors="*{conditionName}" class="errors alert alert-danger">
+                        Mileage in kilometers is required.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+            <div class="row">
+            <div class="form-group col-md-6 mb-3 ">
+                <label for="power" class="text-white font-weight-bold">Power</label>
+                <input th:field="*{horsePower}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       id="power"
+                       name="horsePower"
+                       type="number"
+                       min="0"
+                       max="9999"
+                       step="1"
+                       class="form-control"
+                       placeholder="Power in horsepower"/>
+                <p th:if="${#fields.hasErrors('horsePower')}" th:errors="*{horsePower}" class="errors alert alert-danger">
+                    Mileage in kilometers is required.
+                </p>
+            </div>
+                <div class="form-group col-md-6 mb-3 ">
+                    <label for="cubicCentimetres" class="text-white font-weight-bold">Cubic Centimetres</label>
+                    <input th:field="*{cubicCentimeters}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="cubicCentimetres"
+                           name="cubicCentimeters"
+                           type="number"
+                           min="0"
+                           max="9999"
+                           step="1"
+                           class="form-control"
+                           placeholder="Cubic Centimeters"/>
+                    <p th:if="${#fields.hasErrors('cubicCentimeters')}" th:errors="*{cubicCentimeters}" class="errors alert alert-danger">
+                        Mileage in kilometers is required.
+                    </p>
+                </div>
+
+            </div>
+
+
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="engine">Engine</label>
+                <select th:field="*{engine}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        id="engine"
+                        name="engine"
+                        class="form-control">
+                    <option value="">- Select a engine -</option>
+                    <option th:each="engine : ${engines}" th:value="${engine.name()}" th:text="${engine.name()}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="errors alert alert-danger">
+                    Engine type is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
+                <select th:field="*{transmission}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        id="transmission"
+                        name="transmission"
+                        class="form-control">
+                    <option value="">- Select a transmission -</option>
+                    <option th:each="transmition : ${transmissions}" th:value="${transmition.name()}" th:text="${transmition.name()}"></option>
+
+                </select>
+                <p th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}" class="errors alert alert-danger">
+                    Transmission type is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="year" class="text-white font-weight-bold">Year</label>
+                <input th:field="*{year}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       id="year"
+                       name="year"
+                       type="number"
+                       step="1"
+                       class="form-control"
+                       placeholder="Suggested price"/>
+                <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="errors alert alert-danger">
+                    Manufacturing year is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="mileage" class="text-white font-weight-bold">Mileage</label>
+                <input th:field="*{mileage}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       id="mileage"
+                       name="mileage"
+                       type="number"
+                       min="0"
+                       max="900000"
+                       step="1000"
+                       class="form-control"
+                       placeholder="Mileage in kilometers"/>
+                <p th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}" class="errors alert alert-danger">
+                    Mileage in kilometers is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="description">Description</label>
+            <textarea th:field="*{description}"
+                      th:errorclass="'is-invalid bg-danger'"
+                      id="description"
+                      name="description"
+                      type="textarea"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Description"></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="errors alert alert-danger">
+                Description is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
+            <input th:field="*{imageUrl}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   id="imageUrl"
+                   name="imageUrl"
+                   type="url"
+                   class="form-control"
+                   placeholder="Put vehicle image URL here">
+            <p th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="errors alert alert-danger">
+                Vehicle image URL is required.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
+
+                </div>
+
+                </div>
+
+
+
+        </div>
+    </form>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>
