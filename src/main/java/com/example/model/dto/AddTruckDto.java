@@ -1,19 +1,21 @@
 package com.example.model.dto;
 
-
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public class AddCarOfferDTO {
+public class AddTruckDto {
+
 
     @NotEmpty(message = "Description is required!")
     private String description;
     @NotEmpty(message = "Brand is required!")
     private String model;
 
-    @NotEmpty(message = "Engine type is required!")
-    private String engine;
+
     @NotEmpty(message = "Transmission type is required!")
     private String transmission;
 
@@ -34,9 +36,10 @@ public class AddCarOfferDTO {
     private int year;
 
     @Positive(message = "Horse power must be grater than!")
-
     private int horsePower;
 
+    @NotEmpty(message = "Axles are required!")
+    private String axles;
 
     @Positive(message = "Cubic centimeters must be grater than 0!")
     private int cubicCentimeters;
@@ -50,12 +53,28 @@ public class AddCarOfferDTO {
     @NotEmpty(message = "Euro Standard is required!")
     private String standard;
 
-    public String getSecondImageUrl() {
-        return secondImageUrl;
+    public int getCubicCentimeters() {
+        return cubicCentimeters;
     }
 
-    public void setSecondImageUrl(String secondImageUrl) {
-        this.secondImageUrl = secondImageUrl;
+    public void setCubicCentimeters(int cubicCentimeters) {
+        this.cubicCentimeters = cubicCentimeters;
+    }
+
+    public String getConditionName() {
+        return conditionName;
+    }
+
+    public void setConditionName(String conditionName) {
+        this.conditionName = conditionName;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
     }
 
     public String getDescription() {
@@ -74,14 +93,6 @@ public class AddCarOfferDTO {
         this.model = model;
     }
 
-    public String getEngine() {
-        return engine;
-    }
-
-    public void setEngine(String engine) {
-        this.engine = engine;
-    }
-
     public String getTransmission() {
         return transmission;
     }
@@ -96,6 +107,14 @@ public class AddCarOfferDTO {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getSecondImageUrl() {
+        return secondImageUrl;
+    }
+
+    public void setSecondImageUrl(String secondImageUrl) {
+        this.secondImageUrl = secondImageUrl;
     }
 
     public int getMileage() {
@@ -130,27 +149,11 @@ public class AddCarOfferDTO {
         this.horsePower = horsePower;
     }
 
-    public int getCubicCentimeters() {
-        return cubicCentimeters;
+    public String getAxles() {
+        return axles;
     }
 
-    public void setCubicCentimeters(int cubicCentimeters) {
-        this.cubicCentimeters = cubicCentimeters;
-    }
-
-    public String getConditionName() {
-        return conditionName;
-    }
-
-    public void setConditionName(String conditionName) {
-        this.conditionName = conditionName;
-    }
-
-    public String getStandard() {
-        return standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard;
+    public void setAxles(String axles) {
+        this.axles = axles;
     }
 }

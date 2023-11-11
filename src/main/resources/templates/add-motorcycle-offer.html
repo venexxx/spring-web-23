@@ -20,10 +20,10 @@
 
 <div class="container">
     <h2 class="text-center text-white">Upload Offer</h2>
-    <form  th:action="@{/offers/add-car}"
+    <form  th:action="@{/offers/add-motorcycle}"
            th:method="post"
-           th:object="${addCarOfferDTO}"
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+           th:object="${addMotorcycleDTO}"
+           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
 
         <div class="row">
@@ -38,7 +38,7 @@
                     <option value="">- Select a brand -</option>
 
                     <optgroup
-                            th:each="brand: ${carBrands}"
+                            th:each="brand: ${motorcycleBrands}"
                             th:label="${brand.getName()}">
                         <option th:each="modelName : ${brand.getModels()}"  th:value="|${brand.getName()} ${modelName} |" th:text="${modelName}" >
 
@@ -52,24 +52,24 @@
                     Vechicle model is required.
                 </p>
             </div>
-        <div class="form-group col-md-6 mb-3">
-            <label class="text-center text-white font-weight-bold" for="euroStandard">Euro Standard</label>
-            <select id="euroStandard"
-                    th:field="*{standard}"
-                    th:errorclass="'is-invalid bg-danger'"
-                    name="standard"
-                    class="form-control">
-                <option value="">- Select a standard -</option>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="euroStandard">Euro Standard</label>
+                <select id="euroStandard"
+                        th:field="*{standard}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        name="standard"
+                        class="form-control">
+                    <option value="">- Select a standard -</option>
 
-                <option th:each="standard : ${standards}" th:text="${standard.getName()}" th:value="${standard.getStandard()}">
+                    <option th:each="standard : ${standards}" th:text="${standard.getName()}" th:value="${standard.getStandard()}">
 
-                </option>
+                    </option>
 
-            </select>
-            <p th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}" class="invalid-feedback errors alert alert-danger">
-                Vechicle model is required.
-            </p>
-        </div>
+                </select>
+                <p th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}" class="invalid-feedback errors alert alert-danger">
+                    Vechicle model is required.
+                </p>
+            </div>
         </div>
 
 
@@ -81,7 +81,7 @@
                 <label for="price" class="text-white font-weight-bold">Price in BGN</label>
                 <input th:field="*{price}"
                        th:errorclass="'is-invalid bg-danger'"
-                        id="price"
+                       id="price"
                        name="price"
                        type="number"
                        min="0"
@@ -116,7 +116,7 @@
         </div>
 
 
-            <div class="row">
+        <div class="row">
             <div class="form-group col-md-6 mb-3 ">
                 <label for="power" class="text-white font-weight-bold">Power</label>
                 <input th:field="*{horsePower}"
@@ -133,42 +133,29 @@
                     Mileage in kilometers is required.
                 </p>
             </div>
-                <div class="form-group col-md-6 mb-3 ">
-                    <label for="cubicCentimetres" class="text-white font-weight-bold">Cubic Centimetres</label>
-                    <input th:field="*{cubicCentimeters}"
-                           th:errorclass="'is-invalid bg-danger'"
-                           id="cubicCentimetres"
-                           name="cubicCentimeters"
-                           type="number"
-                           min="0"
-                           max="9999"
-                           step="1"
-                           class="form-control"
-                           placeholder="Cubic Centimeters"/>
-                    <p th:if="${#fields.hasErrors('cubicCentimeters')}" th:errors="*{cubicCentimeters}" class="errors alert alert-danger">
-                        Mileage in kilometers is required.
-                    </p>
-                </div>
-
+            <div class="form-group col-md-6 mb-3 ">
+                <label for="cubicCentimetres" class="text-white font-weight-bold">Cubic Centimetres</label>
+                <input th:field="*{cubicCentimeters}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       id="cubicCentimetres"
+                       name="cubicCentimeters"
+                       type="number"
+                       min="0"
+                       max="9999"
+                       step="1"
+                       class="form-control"
+                       placeholder="Cubic Centimeters"/>
+                <p th:if="${#fields.hasErrors('cubicCentimeters')}" th:errors="*{cubicCentimeters}" class="errors alert alert-danger">
+                    Mileage in kilometers is required.
+                </p>
             </div>
+
+        </div>
 
 
 
         <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label class="text-center text-white font-weight-bold" for="engine">Engine</label>
-                <select th:field="*{engine}"
-                        th:errorclass="'is-invalid bg-danger'"
-                        id="engine"
-                        name="engine"
-                        class="form-control">
-                    <option value="">- Select a engine -</option>
-                    <option th:each="engine : ${engines}" th:value="${engine.name()}" th:text="${engine.name()}"></option>
-                </select>
-                <p th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="errors alert alert-danger">
-                    Engine type is required.
-                </p>
-            </div>
+
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
                 <select th:field="*{transmission}"
@@ -182,6 +169,22 @@
                 </select>
                 <p th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}" class="errors alert alert-danger">
                     Transmission type is required.
+                </p>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="price" class="text-white font-weight-bold">Moto Hours</label>
+                <input th:field="*{motoHours}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       id="motoHours"
+                       name="motoHours"
+                       type="number"
+                       min="0"
+                       step="1"
+                       class="form-control"
+                       placeholder="Suggested price"/>
+                <p th:if="${#fields.hasErrors('motoHours')}" th:errors="*{motoHours}"  class="errors alert alert-danger">
+                    Suggested price is required.
                 </p>
             </div>
         </div>
@@ -264,7 +267,7 @@
 
                 </div>
 
-                </div>
+            </div>
 
 
 

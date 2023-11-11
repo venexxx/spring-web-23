@@ -1,5 +1,6 @@
 package com.example.model.entity;
 
+import com.example.model.entity.enums.AxlesEnum;
 import com.example.model.entity.enums.ConditionEnum;
 import com.example.model.entity.enums.EngineEnum;
 import com.example.model.entity.enums.TransmissionEnum;
@@ -17,24 +18,28 @@ public class OfferEntity extends BaseEntity{
 
   @NotEmpty
   private String description;
-  @NotNull
   @ManyToOne
   private ModelEntity model;
 
-  @NotNull
+
   @Enumerated(EnumType.STRING)
   private EngineEnum engine;
-  @NotNull
+  @Enumerated(EnumType.STRING)
+  private AxlesEnum axles;
   @Enumerated(EnumType.STRING)
   private TransmissionEnum transmission;
 
-  @NotEmpty
   private String imageUrl;
+
+  private String secondImageUrl;
 
   @Positive
   private int mileage;
 
-  @NotNull
+
+  @Positive
+  private int motoHours;
+
   private BigDecimal price;
 
   @Min(1930)
@@ -43,12 +48,10 @@ public class OfferEntity extends BaseEntity{
   @Positive
   private int horsePower;
 
-  @NotNull
   @Positive
   private int cubicCentimeters;
 
 
-  @NotNull
   @Enumerated(EnumType.STRING)
   private ConditionEnum conditionName;
 
@@ -59,6 +62,30 @@ public class OfferEntity extends BaseEntity{
 
   @ManyToOne
   private UserEntity postBy;
+
+  public int getMotoHours() {
+    return motoHours;
+  }
+
+  public void setMotoHours(int motoHours) {
+    this.motoHours = motoHours;
+  }
+
+  public AxlesEnum getAxles() {
+    return axles;
+  }
+
+  public void setAxles(AxlesEnum axles) {
+    this.axles = axles;
+  }
+
+  public String getSecondImageUrl() {
+    return secondImageUrl;
+  }
+
+  public void setSecondImageUrl(String secondImageUrl) {
+    this.secondImageUrl = secondImageUrl;
+  }
 
   public ConditionEnum getConditionName() {
     return conditionName;
@@ -102,7 +129,15 @@ public class OfferEntity extends BaseEntity{
     this.horsePower = horsePower;
   }
 
+  public boolean isItVIP;
 
+  public boolean isItVIP() {
+    return isItVIP;
+  }
+
+  public void setItVIP(boolean itVIP) {
+    isItVIP = itVIP;
+  }
 
   public String getDescription() {
     return description;

@@ -1,27 +1,33 @@
 package com.example.model.dto;
 
-
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public class OfferAddDTO {
+public class AddMotorcycleDTO {
 
     @NotEmpty(message = "Description is required!")
     private String description;
     @NotEmpty(message = "Brand is required!")
     private String model;
 
-    @NotEmpty(message = "Engine type is required!")
-    private String engine;
+
     @NotEmpty(message = "Transmission type is required!")
     private String transmission;
 
     @NotEmpty(message = "Vehicle image URL  is required!")
     private String imageUrl;
+    @NotEmpty(message = "Vehicle image URL  is required!")
+    private String secondImageUrl;
 
     @Positive(message = "Vehicle mileage is required!")
     private int mileage;
+
+    @Positive(message = "Vehicle moto hours is required!")
+    private int motoHours;
 
     @Positive(message = "Price must grater than 0!")
     @NotNull(message = "Description is required!")
@@ -65,14 +71,6 @@ public class OfferAddDTO {
         this.model = model;
     }
 
-    public String getEngine() {
-        return engine;
-    }
-
-    public void setEngine(String engine) {
-        this.engine = engine;
-    }
-
     public String getTransmission() {
         return transmission;
     }
@@ -89,12 +87,28 @@ public class OfferAddDTO {
         this.imageUrl = imageUrl;
     }
 
+    public String getSecondImageUrl() {
+        return secondImageUrl;
+    }
+
+    public void setSecondImageUrl(String secondImageUrl) {
+        this.secondImageUrl = secondImageUrl;
+    }
+
     public int getMileage() {
         return mileage;
     }
 
     public void setMileage(int mileage) {
         this.mileage = mileage;
+    }
+
+    public int getMotoHours() {
+        return motoHours;
+    }
+
+    public void setMotoHours(int motoHours) {
+        this.motoHours = motoHours;
     }
 
     public BigDecimal getPrice() {

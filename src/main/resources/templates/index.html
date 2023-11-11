@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>AutoSeller</title>
-    <link rel="stylesheet" href="/css/reset-css.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-    <script src="/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+<head th:replace="~{fragments/head}">
 </head>
 
 <body>
@@ -18,18 +11,18 @@
 </div>
 
 
-<div class="container-fluid">
-    <h5 class="text-center text-white mt-5" >Welcome to AutoSeller,<th:block th:text = "${firstName}"></th:block>
-    </h5>
-    <div class="wrapper">
-        <div class="vehicle-card">
+<div class="container-fluid d-flex flex-column">
+    <h1 class="text-center text-white mt-5" >VIP Offers</h1>
+    <div  class="wrapper">
+        <div th:each="offer : ${vipOffers}" class="vehicle-card">
             <div class="details">
                 <div class="thumb-gallery">
-                    <img class="first" src="https://hips.hearstapps.com/amv-prod-cad-assets.s3.amazonaws.com/wp-content/uploads/2017/03/2018-Bugatti-Chiron-119.jpg?crop=1xw:1xh;center,center&resize=480:*" />
-                    <img class="second" src="https://hips.hearstapps.com/amv-prod-cad-assets.s3.amazonaws.com/wp-content/uploads/2017/03/2018-Bugatti-Chiron-117.jpg?crop=1xw:1xh;center,center&resize=480:*" />
+                    <img class="first" th:src="${offer.getImageUrl()}" />
+                    <img class="second" th:src="${offer.getSecondImageUrl()}" />
                 </div>
                 <div class="info">
-                    <h3>Bugatti Chiron</h3>
+                    <h2 class="vip" th:if="|${offer.isVip()}|">VIP</h2>
+                    <h3 th:text="|${offer.getModel()} ${offer.getYear()}|">Bugatti Chiron</h3>
                     <div class="stars" data-stars="1">
                         <svg height="22" width="20" class="star rating" data-rating="5">
                             <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
@@ -49,30 +42,13 @@
                     </div>
                     <div class="price">
                         <span>Price Starting at</span>
-                        <h4>$2,998,000</h4>
+                        <h4 th:text="|${offer.getPrice()}BGN|">$2,998,000</h4>
                     </div>
                     <div class="ctas">
-                        <a href="#" class="btn primary">Model Details</a>
-                        <a href="#" class="btn secondary">Cars for Sale</a>
+                        <a th:href="@{offers/details/{id}(id=*{offer.getId()})}" class="btn primary">Model Details</a>
+                        <a href="https://youtube.com" class="btn secondary">For Sale</a>
                         <div style="clear:both;"></div>
-                    </div>
-                    <div class="desc">
-                        <p>Leaving the 99.99 percent in its dust, the Chiron is a 1500-hp smackdown of every hypercar.</p>
-                    </div>
-                    <div class="specs">
-                        <div class="spec mpg">
-                            <span>EPA City/Hwy</span>
-                            <p>9/14<span>mpg</span></p>
-                        </div>
-                        <div class="spec mpg">
-                            <span>0-60</span>
-                            <p>2.3<span>sec </span></p>
-                        </div>
-                        <div class="spec mpg">
-                            <span>Horsepower</span>
-                            <p>1500<span>hp</span></p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

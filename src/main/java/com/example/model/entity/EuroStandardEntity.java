@@ -18,6 +18,11 @@ public class EuroStandardEntity extends BaseEntity{
     private EuroStandardEnum standard;
 
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
     public String getName() {
         return name;
     }

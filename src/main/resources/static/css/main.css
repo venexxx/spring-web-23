@@ -137,7 +137,7 @@ ul li{
      -webkit-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
      transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-     height: 490px;
+     height: 400px;
      width: 240px;
      background-color:rgba(224, 220, 220,0.7);
 
@@ -158,6 +158,7 @@ ul li{
 }
 .thumb-gallery{
      height: 150px;
+     overflow: hidden;
 }
 .thumb-gallery img{
      position: absolute;
@@ -165,6 +166,7 @@ ul li{
 }
 .thumb-gallery img.first{
      opacity: 1;
+     height: 150px;
 }
 .vehicle-card:hover .thumb-gallery img.second{
      opacity: 0;
@@ -186,7 +188,7 @@ ul li{
 }
 .vehicle-card .price span{
      font-family: "Helvetica", Arial, sans-serif;
-     color: #999;
+     color: #fff;
      font-size: .75rem;
 }
 .vehicle-card .price h4{
@@ -196,7 +198,7 @@ ul li{
      font-size: 1.25rem;
 }
 .vehicle-card .desc p{
-     color: #666;
+     color: #fff;
      font-size: 1rem;
      line-height: 1.25rem;
 }
@@ -212,7 +214,7 @@ ul li{
 }
 .specs span{
      font-family: "Helvetica", Arial, sans-serif;
-     color: #999;
+     color: #fff;
      font-size: .75rem;
 }
 .specs p{
@@ -243,15 +245,15 @@ ul li{
      box-sizing: border-box;         /* Opera/IE 8+ */
 }
 .primary{
-     background-color: #1383b3;
+     background-color: rgb(110, 10, 10);
      color: #fff;
      margin-right: 10px;
      line-height: 30px;
 }
 .secondary{
      background-color: #fff;
-     color: #1383b3;
-     border: 2px solid #1383b3;
+     color:   rgb(110, 10, 10);;
+     border: 2px solid  rgb(110, 10, 10);;
      line-height: 26px;
 }
 .logo-1{
@@ -288,7 +290,7 @@ ul li{
      text-decoration: none;
      background-color: transparent;
      box-shadow: none;
-     color: rgb(110, 10, 10);
+     color:  rgb(110, 10, 10);;
 }
 
 /*.row > .brand{*/
@@ -353,7 +355,7 @@ ul li{
 }
 
 .card::after {
-     content: "CORSAIR";
+     content: "VEHICLE";
      position: absolute;
      bottom: 0;
      left: 0;
@@ -436,6 +438,70 @@ ul li{
 .category{
      display: none;;
 }
+
+.primary:hover{
+    color: #fff;
+
+}
+
+.secondary:hover{
+     color: #fff;
+     background: rgb(110, 10, 10);
+     border: 2px solid rgb(110, 10, 10);
+}
+
+.vip{
+     color: rgb(110, 10, 10);
+     font-size: 2em;
+}
+
+.details-offer.offer, .offer-details .list-group-item {
+     background-image: linear-gradient(to bottom right, rgba(220, 220, 220, 0.9), rgba(255, 255, 255, 0.9));
+}
+
+.card-text{
+     font-size: 1.3em;
+}
+
+
+.card-text{
+     display: inline-block;
+}
+
+
+.section-img{
+     position: relative;
+
+
+}
+
+.first-pic, .second-pic {
+     position: absolute;
+
+     width: 100%;
+     height: 100%;
+     transition: opacity 0.3s ease-in-out;
+}
+.second-pic {
+     opacity: 0;
+}
+.section-img:hover .first-pic {
+     opacity: 0;
+}
+.section-img:hover .second-pic {
+     opacity: 1;
+}
+.second{
+     height: 150px;
+}
+
+.thumb-gallery{
+     overflow: hidden;
+}
+
+
+
+
 
 
 

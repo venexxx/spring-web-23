@@ -48,10 +48,6 @@ public class ModelEntity extends BaseEntity {
 
   @Override
   public String toString() {
-    return "ModelEntity{" +
-        "name='" + name + '\'' +
-        ", category=" + category +
-        ", brand=" + brand +
-        '}';
+    return getBrand().getModelCategoryEnum().toString() + " " + getBrand().getName() +" " + getName();
   }
 }

@@ -1,54 +1,78 @@
 package com.example.model.dto;
 
-
-import jakarta.validation.constraints.*;
+import com.example.model.entity.EuroStandardEntity;
+import com.example.model.entity.ModelEntity;
+import com.example.model.entity.enums.ConditionEnum;
+import com.example.model.entity.enums.EngineEnum;
+import com.example.model.entity.enums.TransmissionEnum;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public class AddCarOfferDTO {
+public class OfferBidingModel {
 
-    @NotEmpty(message = "Description is required!")
+
+    private Long id;
     private String description;
-    @NotEmpty(message = "Brand is required!")
+
     private String model;
 
-    @NotEmpty(message = "Engine type is required!")
+
     private String engine;
-    @NotEmpty(message = "Transmission type is required!")
+
     private String transmission;
 
-    @NotEmpty(message = "Vehicle image URL  is required!")
     private String imageUrl;
-    @NotEmpty(message = "Vehicle image URL  is required!")
     private String secondImageUrl;
 
-    @Positive(message = "Vehicle mileage is required!")
     private int mileage;
 
-    @Positive(message = "Price must grater than 0!")
-    @NotNull(message = "Description is required!")
     private BigDecimal price;
 
-
-    @Min(value = 1930,message = "Year must be grater than 1930!")
     private int year;
-
-    @Positive(message = "Horse power must be grater than!")
 
     private int horsePower;
 
 
-    @Positive(message = "Cubic centimeters must be grater than 0!")
     private int cubicCentimeters;
+    private String standard;
 
+    private String axles;
+    private int motoHours;
 
-    @NotNull(message = "Condition is required!")
+    public String getAxles() {
+        return axles;
+    }
+
+    public int getMotoHours() {
+        return motoHours;
+    }
+
+    public void setMotoHours(int motoHours) {
+        this.motoHours = motoHours;
+    }
+
+    public void setAxles(String axles) {
+        this.axles = axles;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
     private String conditionName;
 
-
-
-    @NotEmpty(message = "Euro Standard is required!")
-    private String standard;
+    private boolean isVip;
 
     public String getSecondImageUrl() {
         return secondImageUrl;
@@ -56,6 +80,22 @@ public class AddCarOfferDTO {
 
     public void setSecondImageUrl(String secondImageUrl) {
         this.secondImageUrl = secondImageUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isVip() {
+        return isVip;
+    }
+
+    public void setVip(boolean vip) {
+        isVip = vip;
     }
 
     public String getDescription() {
@@ -144,13 +184,5 @@ public class AddCarOfferDTO {
 
     public void setConditionName(String conditionName) {
         this.conditionName = conditionName;
-    }
-
-    public String getStandard() {
-        return standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard;
     }
 }
