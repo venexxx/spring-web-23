@@ -19,30 +19,52 @@
 
 
     <div class="container-fluid">
-        <h2 class="text-center text-white mt-5">All Offers</h2>
+
+        <h2 th:unless="${user}" class="text-center text-white mt-5">All <th:block th:if="${myOffers}" th:text="My"></th:block> Offers </h2>
+        <h2 th:if="${user}" class="text-center text-white mt-5"><th:block th:text="|Offers of ${user.getFullName()}  |"></th:block></h2>
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
 
 
-                <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0" th:each="offer : ${@allOffers.getAllOffers()}">
-                    <div  class="card-img-top-wrapper">
-                        <img class="card-img-top" th:src="${offer.ImgUrl()}" alt="Car image">
+            <div th:each="offer : ${offers}" class="vehicle-card">
+                <div class="details">
+                    <div class="thumb-gallery">
+                        <img class="first" th:src="${offer.getImageUrl()}" />
+                        <img class="second" th:src="${offer.getSecondImageUrl()}" />
                     </div>
-                    <div class="card-body pb-1">
-                        <h5 class="card-title" th:text="${offer.toString()}">
-                            Offer year Brand name Model name</h5>
-                    </div>
-                    <ul class="offer-details list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div th:text="|Mileage - ${offer.mileage()}|" class="card-text"></div>
-                            <div th:text="|Price - ${offer.price()}|" class="card-text"></div>
-                            <div th:text="|Engine Type - ${offer.engineType()}|" class="card-text"></div>
-                            <div th:text="|Transmission Type- ${offer.transmissionType()}|" class="card-text"></div>
-                        </li>
-                    </ul>
-                    <div class="card-body">
-                        <a class="card-link" href="/">Details</a>
+                    <div class="info">
+                        <h2 class="vip m-auto" th:if="|${offer.isVip()}|">VIP</h2>
+                        <h2 class="vip m-auto" th:unless="|${offer.isVip()}|">NORMAL</h2>
+                        <h3 th:text="|${offer.getModel()} ${offer.getYear()}|">Bugatti Chiron</h3>
+                        <div class="stars" data-stars="1">
+                            <svg height="22" width="20" class="star rating" data-rating="5">
+                                <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
+                            </svg>
+                            <svg height="22" width="20" class="star rating" data-rating="2">
+                                <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
+                            </svg>
+                            <svg height="22" width="20" class="star rating" data-rating="3">
+                                <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
+                            </svg>
+                            <svg height="22" width="20" class="star rating" data-rating="4">
+                                <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
+                            </svg>
+                            <svg height="22" width="20" class="star rating" data-rating="5">
+                                <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
+                            </svg>
+                        </div>
+                        <div class="price">
+                            <span>Price Starting at</span>
+                            <h4 th:text="|${offer.getPrice()}BGN|">$2,998,000</h4>
+                        </div>
+                        <div class="ctas">
+                            <a th:href="@{/offers/details/{id}(id=*{offer.getId()})}" class="btn primary">Model Details</a>
+                            <a href="https://youtube.com" class="btn secondary">For Sale</a>
+                            <div style="clear:both;"></div>
+
+                        </div>
                     </div>
                 </div>
+            </div>
 
 
 

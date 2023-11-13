@@ -18,6 +18,9 @@ public class UserEntity extends BaseEntity{
       inverseJoinColumns = @JoinColumn(name = "role_id"))
   private List<UserRoleEntity> roles = new ArrayList<>();
 
+
+
+  private Long roleId;
   private String password;
 
   private String firstName;
@@ -26,8 +29,51 @@ public class UserEntity extends BaseEntity{
 
   private boolean active;
 
-  @OneToMany(mappedBy = "postBy")
+  private String profilePictureUrl;
+  private boolean isBanned;
+
+
+
+
+
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
+          mappedBy = "postBy")
   private Set<OfferEntity> offers = new LinkedHashSet<>();
+
+  public boolean isBanned() {
+    return isBanned;
+  }
+
+  public UserEntity setBanned(boolean banned) {
+    isBanned = banned;
+    return this;
+  }
+
+  public Long getRoleId() {
+    return roleId;
+  }
+
+  public UserEntity setRoleId(Long roleId) {
+    this.roleId = roleId;
+    return this;
+  }
+
+  public String getProfilePictureUrl() {
+    return profilePictureUrl;
+  }
+
+  public UserEntity setProfilePictureUrl(String profilePictureUrl) {
+    this.profilePictureUrl = profilePictureUrl;
+    return this;
+  }
+
+  public Set<OfferEntity> getOffers() {
+    return offers;
+  }
+
+  public void setOffers(Set<OfferEntity> offers) {
+    this.offers = offers;
+  }
 
   public String getEmail() {
     return email;

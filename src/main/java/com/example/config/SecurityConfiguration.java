@@ -34,6 +34,8 @@ public class SecurityConfiguration   {
             .requestMatchers(HttpMethod.GET, "/offer/**").permitAll()
             .requestMatchers("/error").permitAll()
             .requestMatchers("/brands").hasRole(UserRoleEnum.ADMIN.name())
+            .requestMatchers("/users/all").hasRole(UserRoleEnum.ADMIN.name())
+            .requestMatchers("/users/details/**").hasRole(UserRoleEnum.ADMIN.name())
             .requestMatchers("/brands/add").hasRole(UserRoleEnum.ADMIN.name())
             .requestMatchers("/brands").hasRole(UserRoleEnum.VIP.name())
 

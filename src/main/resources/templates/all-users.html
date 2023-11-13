@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/head}">
+</head>
+
+
+<body>
+<nav th:replace="~{fragments/navbar}"></nav>
+
+
+<div class="container">
+    <h1 class="text-center text-white mt-5" >All Users</h1>
+    <div class="row d-flex flex-row justify-content-center">
+        <div th:each="user : ${users}"  class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="our-team">
+                <div class="picture">
+                    <img class="img-fluid" th:src="${user.getProfilePictureUrl()}">
+                </div>
+                <div class="team-content">
+                    <h3 class="name" th:text="${user.getFullName()}">Michele Miller</h3>
+                    <h4 class="title" th:text="${user.getEmail()}">Web Developer</h4>
+                </div>
+                <ul class="social">
+                    <li th:unless="${user.isBanned()}"><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true">BAN USER</a></li>
+                    <li th:if="${user.isBanned()}"><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true">UNBAN USER</a></li>
+                    <li><a th:href="@{/users/details/{id}(id=*{user.getId()})}" class="fa fa-facebook" aria-hidden="true">View User</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

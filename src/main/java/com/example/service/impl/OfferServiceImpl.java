@@ -5,6 +5,7 @@ import com.example.model.dto.AddMotorcycleDTO;
 import com.example.model.dto.AddTruckDto;
 import com.example.model.dto.OfferBidingModel;
 import com.example.model.entity.OfferEntity;
+import com.example.model.entity.UserEntity;
 import com.example.model.entity.UserRoleEntity;
 import com.example.model.entity.enums.AxlesEnum;
 import com.example.model.entity.enums.ConditionEnum;
@@ -17,6 +18,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -59,8 +63,19 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public Set<OfferBidingModel> getAllOffers(String cName) {
+        Set<OfferBidingModel> offers = repository.findOffers(cName).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        return offers;
+    }
+
+
+
+    @Override
     public OfferBidingModel getOffer(Long id) {
-        return mapper.map(repository.findById(id).orElse(null),OfferBidingModel.class);
+        OfferEntity offerEntity = repository.findById(id).orElse(null);
+        OfferBidingModel offer = mapper.map(offerEntity, OfferBidingModel.class);
+        offer.setPosBy(offerEntity.getPostBy().getId());
+        return offer;
     }
 
     @Override
@@ -73,6 +88,44 @@ public class OfferServiceImpl implements OfferService {
     public void addMotorcycleOffer(AddMotorcycleDTO offerAddDTO) {
         OfferEntity offer = map(offerAddDTO);
         repository.save(offer);
+    }
+
+    @Override
+    public Set<OfferBidingModel> getOfferByCategory(String category) {
+        Set<OfferBidingModel> offers = new LinkedHashSet<>();
+        offers = repository.findOffers(category).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        return offers;
+
+    }
+
+    @Override
+    public String delete(Long Id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        OfferEntity offerForDelete = repository.findById(Id).orElse(null);
+
+        UserEntity user = userService.getByUserEmail(name);
+        if (user.getId() == offerForDelete.getPostBy().getId() || auth.getAuthorities().toArray()[0].toString().equals("ROLE_ADMIN")){
+            repository.delete(offerForDelete);
+            return "redirect:/";
+        }else {
+            return "redirect:/users/login";
+        }
+
+    }
+
+    @Override
+    public Set<OfferBidingModel> getMyOffers() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        UserEntity user = userService.getByUserEmail(name);
+        Set<OfferBidingModel> myOffers = repository.myOffers(user.getId()).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        return myOffers;
+    }
+
+    @Override
+    public Set<OfferBidingModel> getOffersById(Long id) {
+        return repository.myOffers(id).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
     }
 
     public OfferEntity map(AddCarOfferDTO offerAddDTO){

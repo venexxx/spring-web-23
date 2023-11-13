@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AutoSeller</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+  <nav th:replace="~{fragments/navbar}"></nav>
+</div>
+
+
+<div class="container">
+  <h2 class="text-center text-white">Search Offer</h2>
+  <form th:action="@{/offers/search}"
+        th:method="post"
+        th:object="${searchOfferDTO}"
+        class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+    <div class="form-group  ">
+      <label class="text-center text-white font-weight-bold" for="category">Category</label>
+      <select
+              th:field="*{category}"
+              th:errorclass="'is-invalid bg-danger'"
+               id="category"
+               name="category"
+               class="form-control">
+        <option value="">- Select a category -</option>
+
+          <option th:each="category : ${categories}" th:text="${category.name()}" th:value="${category.name()}" ></option>
+
+      </select>
+      <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors alert alert-danger">
+        Vechicle model is required.
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-4">
+        <div class="button-holder d-flex">
+          <input type="submit" class="btn btn-info btn-lg" value="Search Offer"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div>
+  <footer> </footer>
+</div>
+
+</body>
+</html>

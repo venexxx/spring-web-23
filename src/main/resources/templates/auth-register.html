@@ -51,6 +51,7 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
+
                 <label for="email" class="text-white font-weight-bold">Email</label>
                 <input th:field="*{email}"
                        th:errorclass="'is-invalid bg-danger'"
@@ -63,6 +64,20 @@
                     Email is required.
                 </p>
             </div>
+            <div class="form-group col-md-6 mb-3">
+            <label class="text-white font-weight-bold" for="profilePictureUrl">Image URL</label>
+            <input th:field="*{profilePictureUrl}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   id="profilePictureUrl"
+                   name="profilePictureUrl"
+                   type="url"
+                   class="form-control"
+                   placeholder="Put profile picture image URL here">
+            <p th:if="${#fields.hasErrors('profilePictureUrl')}" th:errors="*{profilePictureUrl}" class="errors alert alert-danger">
+                Vehicle image URL is required.
+            </p>
+            </div>
+
         </div>
 
         <div class="row">

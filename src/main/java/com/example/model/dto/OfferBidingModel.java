@@ -19,6 +19,7 @@ public class OfferBidingModel {
 
 
     private Long id;
+    private Long posBy;
     private String description;
 
     private String model;
@@ -45,6 +46,14 @@ public class OfferBidingModel {
 
     private String axles;
     private int motoHours;
+
+    public Long getPosBy() {
+        return posBy;
+    }
+
+    public void setPosBy(Long posBy) {
+        this.posBy = posBy;
+    }
 
     public String getAxles() {
         return axles;

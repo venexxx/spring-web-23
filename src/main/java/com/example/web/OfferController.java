@@ -1,11 +1,15 @@
 package com.example.web;
 
 import com.example.model.dto.*;
+import com.example.model.entity.UserEntity;
 import com.example.model.entity.enums.*;
 import com.example.service.BrandService;
 import com.example.service.EuroStandardService;
 import com.example.service.OfferService;
+import com.example.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +30,13 @@ public class OfferController {
     private final EuroStandardService standardService;
     private final OfferService offerService;
 
-    public OfferController(BrandService brandService, EuroStandardService standardService, OfferService offerService) {
+    private final UserService userService;
+
+    public OfferController(BrandService brandService, EuroStandardService standardService, OfferService offerService, UserService userService) {
         this.brandService = brandService;
         this.standardService = standardService;
         this.offerService = offerService;
+        this.userService = userService;
     }
 
 
@@ -151,10 +158,82 @@ public class OfferController {
 
     }
 
+    @DeleteMapping("offers/delete/{id}")
+    public ModelAndView deleteOffer(@PathVariable Long id, ModelAndView modelAndView){
+        modelAndView.setViewName(offerService.delete(id));
+        return modelAndView;
+
+    }
+
+
+
+    @GetMapping("offers/search")
+    public ModelAndView offerSearch(ModelAndView modelAndView){
+        modelAndView.setViewName("offers-search");
+        return modelAndView;
+
+    }
+
+    @GetMapping("offers/search/{category}")
+    public ModelAndView offerSearch(@PathVariable String category,ModelAndView modelAndView){
+        modelAndView.setViewName("offers");
+
+
+        Set<OfferBidingModel> offers = offerService.getOfferByCategory(category);
+        modelAndView.addObject("offers",offers);
+
+
+
+        return modelAndView;
+
+    }
+
+    @GetMapping("offers/{id}")
+    public ModelAndView offersSearch(@PathVariable Long id,ModelAndView modelAndView){
+        modelAndView.setViewName("offers");
+
+
+        Set<OfferBidingModel> offers = offerService.getOffersById(id);
+        UserBindingModel user = userService.getById(id);
+        modelAndView.addObject("user",user);
+        modelAndView.addObject("offers",offers);
+
+
+
+        return modelAndView;
+
+    }
+
+    @GetMapping("offers/my-offers")
+    public ModelAndView myOffers(ModelAndView modelAndView){
+        modelAndView.setViewName("offers");
+
+        boolean myOffers = true;
+
+        Set<OfferBidingModel> offers = offerService.getMyOffers();
+        modelAndView.addObject("offers",offers);
+        modelAndView.addObject("myOffers",myOffers);
+
+
+
+        return modelAndView;
+
+    }
+
+
+    @PostMapping("offers/search")
+    public ModelAndView offerSearch(@Valid SearchOfferDTO searchOfferDTO, BindingResult result, RedirectAttributes redirectAttributes, ModelAndView modelAndView){
+        modelAndView.setViewName("redirect:search/" + searchOfferDTO.getCategory());
+        return modelAndView;
+
+    }
+
     @ModelAttribute
     public AddCarOfferDTO addCarOfferDTO() {
         return new AddCarOfferDTO();
     }
+
+
 
 
 
@@ -167,6 +246,11 @@ public class OfferController {
     public AddMotorcycleDTO addMotorcycleDTO() {
         return new AddMotorcycleDTO();
     }
+    @ModelAttribute
+    public SearchOfferDTO searchOfferDTO() {
+        return new SearchOfferDTO();
+    }
+
 
 
 
@@ -174,6 +258,13 @@ public class OfferController {
     public TransmissionEnum[] transmissions() {
         return TransmissionEnum.values();
     }
+
+    @ModelAttribute("categories")
+    public ModelCategoryEnum[] categories() {
+        return ModelCategoryEnum.values();
+    }
+
+
     @ModelAttribute("engines")
     public EngineEnum[] engines() {
         return EngineEnum.values();

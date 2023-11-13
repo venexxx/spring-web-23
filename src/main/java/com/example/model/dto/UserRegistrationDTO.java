@@ -15,9 +15,22 @@ public class UserRegistrationDTO {
     @NotEmpty(message = "Email must not be Empty!")
     @Email
     private String email;
+
+    @NotEmpty(message = "Password must not be Empty!")
     private String password;
+
     private String confirmPassword;
 
+    @NotEmpty(message = "Profile image URL  is required!")
+    private String profilePictureUrl;
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
 
     public String getFirstName() {
         return firstName;
