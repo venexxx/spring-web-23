@@ -22,8 +22,8 @@
                     <h4 class="title" th:text="${user.getEmail()}">Web Developer</h4>
                 </div>
                 <ul class="social">
-                    <li th:unless="${user.isBanned()}"><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true">BAN USER</a></li>
-                    <li th:if="${user.isBanned()}"><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true">UNBAN USER</a></li>
+                    <li th:unless="${user.isBanned()}"><a th:href="@{/users/ban-user/{id}(id=*{user.getId()})}" class="fa fa-facebook" aria-hidden="true">BAN USER</a></li>
+                    <li th:if="${user.isBanned()}"><a th:href="@{/users/unban-user/{id}(id=*{user.getId()})}" class="fa fa-facebook" aria-hidden="true">UNBAN USER</a></li>
                     <li><a th:href="@{/users/details/{id}(id=*{user.getId()})}" class="fa fa-facebook" aria-hidden="true">View User</a></li>
                 </ul>
             </div>

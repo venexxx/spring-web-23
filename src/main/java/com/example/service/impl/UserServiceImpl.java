@@ -7,6 +7,7 @@ import com.example.model.dto.UserViewDTO;
 import com.example.model.entity.UserEntity;
 import com.example.model.entity.UserRoleEntity;
 import com.example.model.entity.enums.UserRoleEnum;
+import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,12 +26,15 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final ModelMapper modelMapper;
 
+  private final RoleRepository roleRepository;
+
   public UserServiceImpl(
           UserRepository userRepository,
-          PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+          PasswordEncoder passwordEncoder, ModelMapper modelMapper, RoleRepository roleRepository) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.modelMapper = modelMapper;
+    this.roleRepository = roleRepository;
   }
 
   @Override
@@ -77,8 +80,32 @@ public class UserServiceImpl implements UserService {
     return modelMapper.map(user, UserBindingModel.class);
   }
 
+  @Override
+  public void banUser(Long id) {
+    UserEntity byId = userRepository.findById(id).orElse(null);
+    userRepository.delete(byId);
+    byId.setBanned(true);
+    userRepository.save(byId);
+  }
+
+  @Override
+  public void unbanUser(Long id) {
+    UserEntity byId = userRepository.findById(id).orElse(null);
+    userRepository.delete(byId);
+    byId.setBanned(false);
+    userRepository.save(byId);
+  }
+
+  @Override
+  public List<String> deleteBannedUsers() {
+    List<UserEntity> allBannedUsers = userRepository.findAllBannedUsers();
+
+    userRepository.deleteAll(allBannedUsers);
+    return allBannedUsers.stream().map(u -> u.getFirstName() + " " + u.getLastName()).toList();
+  }
+
   private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-    UserRoleEntity role = new UserRoleEntity();
+    UserRoleEntity role = roleRepository.getReferenceById(3L);
     role.setRole(UserRoleEnum.USER);
     List<UserRoleEntity> roles = new ArrayList<>();
     roles.add(role);
@@ -89,6 +116,7 @@ public class UserServiceImpl implements UserService {
         .setEmail(userRegistrationDTO.getEmail())
         .setBanned(false)
             .setRoleId(3L)
+
         .setProfilePictureUrl(userRegistrationDTO.getProfilePictureUrl())
         .setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
   }

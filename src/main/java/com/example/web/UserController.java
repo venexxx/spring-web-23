@@ -101,12 +101,36 @@ public class UserController {
 
   }
 
+  @GetMapping("/ban-user/{id}")
+  public ModelAndView banUser(@PathVariable Long id, ModelAndView modelAndView){
+    modelAndView.setViewName("redirect:/users/all");
+    userService.banUser(id);
+    return modelAndView;
+
+  }
+
+  @GetMapping("/unban-user/{id}")
+  public ModelAndView unbanUser(@PathVariable Long id, ModelAndView modelAndView){
+    modelAndView.setViewName("redirect:/users/all");
+    userService.unbanUser(id);
+    return modelAndView;
+
+  }
+
+  @GetMapping("/banned")
+  public ModelAndView bannedUser(ModelAndView modelAndView){
+    modelAndView.setViewName("banned");
+    return modelAndView;
+
+  }
+
 
 
   @ModelAttribute("userRegistrationDTO")
   public UserRegistrationDTO userRegistrationDTO() {
     return new UserRegistrationDTO();
   }
+
 
 
 }

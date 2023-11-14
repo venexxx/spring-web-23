@@ -11,7 +11,7 @@ public class UserEntity extends BaseEntity{
   @Column(unique = true)
   private String email;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
   @JoinTable(
       name = "users_roles",
       joinColumns = @JoinColumn(name = "user_id"),

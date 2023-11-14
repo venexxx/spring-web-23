@@ -46,7 +46,7 @@
                     </div>
                     <div class="ctas">
                         <a th:href="@{offers/details/{id}(id=*{offer.getId()})}" class="btn primary">Model Details</a>
-                        <a href="https://youtube.com" class="btn secondary">For Sale</a>
+                        <a th:href="@{/users/details/{userId}(userId=${offer.getPostById()})}" class="btn secondary">For Sale</a>
                         <div style="clear:both;"></div>
 
                 </div>

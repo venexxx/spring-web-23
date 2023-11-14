@@ -37,7 +37,7 @@ public class OfferEntity extends BaseEntity{
   private int mileage;
 
 
-  @Positive
+  @Min(value = 0)
   private int motoHours;
 
   private BigDecimal price;

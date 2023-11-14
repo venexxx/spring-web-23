@@ -57,14 +57,24 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Set<OfferBidingModel> getVipOffers() {
         UserRoleEntity role = roleService.getById(2L);
-        Set<OfferBidingModel> vips = repository.findAllVIPOffers().stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        Set<OfferBidingModel> vips = repository.findAllVIPOffers().stream().map(o -> {
+            OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
+            mapOffer.setPostById(o.getPostBy().getId());
+            return mapOffer;
+
+        }).collect(Collectors.toSet());
         return vips;
 
     }
 
     @Override
     public Set<OfferBidingModel> getAllOffers(String cName) {
-        Set<OfferBidingModel> offers = repository.findOffers(cName).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        Set<OfferBidingModel> offers = repository.findOffers(cName).stream().map(o -> {
+            OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
+            mapOffer.setPostById(o.getPostBy().getId());
+            return mapOffer;
+
+        }).collect(Collectors.toSet());
         return offers;
     }
 
@@ -74,7 +84,7 @@ public class OfferServiceImpl implements OfferService {
     public OfferBidingModel getOffer(Long id) {
         OfferEntity offerEntity = repository.findById(id).orElse(null);
         OfferBidingModel offer = mapper.map(offerEntity, OfferBidingModel.class);
-        offer.setPosBy(offerEntity.getPostBy().getId());
+        offer.setPostById(offerEntity.getPostBy().getId());
         return offer;
     }
 
@@ -93,7 +103,12 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Set<OfferBidingModel> getOfferByCategory(String category) {
         Set<OfferBidingModel> offers = new LinkedHashSet<>();
-        offers = repository.findOffers(category).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        offers = repository.findOffers(category).stream().map(o -> {
+            OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
+            mapOffer.setPostById(o.getPostBy().getId());
+            return mapOffer;
+
+        }).collect(Collectors.toSet());
         return offers;
 
     }
@@ -119,13 +134,24 @@ public class OfferServiceImpl implements OfferService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         UserEntity user = userService.getByUserEmail(name);
-        Set<OfferBidingModel> myOffers = repository.myOffers(user.getId()).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        Set<OfferBidingModel> myOffers = repository.myOffers(user.getId()).stream().map(o -> {
+            OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
+            mapOffer.setPostById(o.getPostBy().getId());
+            return mapOffer;
+
+        }).collect(Collectors.toSet());
+
         return myOffers;
     }
 
     @Override
     public Set<OfferBidingModel> getOffersById(Long id) {
-        return repository.myOffers(id).stream().map(o -> mapper.map(o, OfferBidingModel.class)).collect(Collectors.toSet());
+        return repository.myOffers(id).stream().map(o -> {
+            OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
+            mapOffer.setPostById(o.getPostBy().getId());
+            return mapOffer;
+
+        }).collect(Collectors.toSet());
     }
 
     public OfferEntity map(AddCarOfferDTO offerAddDTO){
@@ -148,7 +174,9 @@ public class OfferServiceImpl implements OfferService {
         offer.setSecondImageUrl(offerAddDTO.getSecondImageUrl());
         offer.setPostBy(userService.getByUserEmail(name));
         offer.setCubicCentimeters(offerAddDTO.getCubicCentimeters());
-        offer.setItVIP(auth.getAuthorities().toArray()[0].toString().equals("ROLE_VIP") || auth.getAuthorities().toArray()[0].toString().equals("ROLE_ADMIN") );
+        if (auth.getAuthorities().toArray().length > 0){
+            offer.setItVIP(auth.getAuthorities().toArray()[0].toString().equals("ROLE_VIP") || auth.getAuthorities().toArray()[0].toString().equals("ROLE_ADMIN") );
+        }
 
         return offer;
     }
