@@ -39,7 +39,7 @@ public class SecurityConfiguration   {
             .requestMatchers("/users/all").hasRole(UserRoleEnum.ADMIN.name())
             .requestMatchers("/users/unban-user/**").hasRole(UserRoleEnum.ADMIN.name())
             .requestMatchers("/users/ban-user/**").hasRole(UserRoleEnum.ADMIN.name())
-            .requestMatchers("/users/details/**").authenticated()
+            .requestMatchers("/users/details/**").permitAll()
             .requestMatchers("/brands/add").hasRole(UserRoleEnum.ADMIN.name())
             .requestMatchers("/brands").hasRole(UserRoleEnum.VIP.name())
 

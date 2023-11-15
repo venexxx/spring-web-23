@@ -87,7 +87,7 @@
                       th:action="@{/offers/delete/{offerUUID}(offerUUID=*{id})}">
                     <input type="submit" value="Delete" class="link card-link btn primary mb-3"/>
                 </form>
-                <a th:href="@{/users/details/{userId}(userId=${offer.getPostById()})}" class="btn secondary mb-3">For Sale</a>
+                <a th:href="@{/users/seller-details/{userId}(userId=${offer.getPostById()})}" class="btn secondary mb-3">For Sale</a>
             </div>
         </div>
         <div class="offer section-img details-offer col-sm-2 col-md-3  col-lg-4 m-1 p-0 ">

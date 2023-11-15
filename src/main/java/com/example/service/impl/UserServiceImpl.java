@@ -58,18 +58,24 @@ public class UserServiceImpl implements UserService {
   public UserViewDTO getByEmail(String email){
     UserEntity user = userRepository.findByEmail(email).orElse(null);
 
-    return modelMapper.map(user,UserViewDTO.class);
+    UserViewDTO userViewDTO = modelMapper.map(user, UserViewDTO.class);
+    return userViewDTO;
   }
 
   @Override
   public UserEntity getByUserEmail(String email) {
+
     return userRepository.findByEmail(email).orElse(null);
   }
 
   @Override
   public Set<UserBindingModel> getAllUsers() {
     return userRepository.allUsers().stream().map(u -> {
+
       UserBindingModel user = modelMapper.map(u, UserBindingModel.class);
+      if (u.getRoleId() == 2){
+        user.setItVip(true);
+      }
       return user;
     }).collect(Collectors.toSet());
   }
@@ -77,12 +83,23 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserBindingModel getById(Long id) {
     UserEntity user = userRepository.findById(id).orElse(null);
-    return modelMapper.map(user, UserBindingModel.class);
+
+    if (user == null){
+      return null;
+    }
+    UserBindingModel userBindingModel = modelMapper.map(user, UserBindingModel.class);
+    if (user.getRoleId() == 2){
+      userBindingModel.setItVip(true);
+    }
+    return userBindingModel;
   }
 
   @Override
   public void banUser(Long id) {
     UserEntity byId = userRepository.findById(id).orElse(null);
+    if (byId == null){
+      return;
+    }
     userRepository.delete(byId);
     byId.setBanned(true);
     userRepository.save(byId);
@@ -91,6 +108,9 @@ public class UserServiceImpl implements UserService {
   @Override
   public void unbanUser(Long id) {
     UserEntity byId = userRepository.findById(id).orElse(null);
+    if (byId == null){
+      return;
+    }
     userRepository.delete(byId);
     byId.setBanned(false);
     userRepository.save(byId);
@@ -102,6 +122,25 @@ public class UserServiceImpl implements UserService {
 
     userRepository.deleteAll(allBannedUsers);
     return allBannedUsers.stream().map(u -> u.getFirstName() + " " + u.getLastName()).toList();
+  }
+
+  @Override
+  public void makeUserVip(Long id) {
+    UserEntity user = userRepository.findById(id).orElse(null);
+    user.setRoleId(2L);
+    userRepository.saveAndFlush(user);
+
+  }
+
+  @Override
+  public void makeUserUser(Long id) {
+    UserEntity user = userRepository.findById(id).orElse(null);
+    user.setRoleId(3L);
+    userRepository.saveAndFlush(user);
+
+
+
+
   }
 
   private UserEntity map(UserRegistrationDTO userRegistrationDTO) {

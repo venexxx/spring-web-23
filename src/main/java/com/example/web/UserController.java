@@ -4,6 +4,7 @@ package com.example.web;
 import com.example.model.dto.OfferBidingModel;
 import com.example.model.dto.UserBindingModel;
 import com.example.model.dto.UserRegistrationDTO;
+import com.example.model.entity.UserEntity;
 import com.example.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -92,7 +93,20 @@ public class UserController {
     return modelAndView;
   }
 
-  @GetMapping("/details/{id}")
+  // <- I made this method to be with Rest in my api directory! ->
+
+
+
+//  GetMapping("/details/{id}")
+//  public ModelAndView userDetails(@PathVariable Long id, ModelAndView modelAndView){
+//    modelAndView.setViewName("user-details");
+//    UserBindingModel user = userService.getById(id);
+//    modelAndView.addObject("user",user);
+//    return modelAndView;
+//
+//  }
+
+    @GetMapping("/seller-details/{id}")
   public ModelAndView userDetails(@PathVariable Long id, ModelAndView modelAndView){
     modelAndView.setViewName("user-details");
     UserBindingModel user = userService.getById(id);
@@ -100,6 +114,7 @@ public class UserController {
     return modelAndView;
 
   }
+
 
   @GetMapping("/ban-user/{id}")
   public ModelAndView banUser(@PathVariable Long id, ModelAndView modelAndView){
@@ -124,12 +139,29 @@ public class UserController {
 
   }
 
+  @GetMapping("make-vip/{id}")
+  public ModelAndView makeUseVip(@PathVariable Long id, ModelAndView modelAndView){
+    userService.makeUserVip(id);
+    modelAndView.setViewName("redirect:/users/all");
+    return modelAndView;
+  }
+
+  @GetMapping("make-user/{id}")
+  public ModelAndView makeUseUser(@PathVariable Long id, ModelAndView modelAndView){
+    userService.makeUserUser(id);
+    modelAndView.setViewName("redirect:/users/all");
+    return modelAndView;
+  }
+
 
 
   @ModelAttribute("userRegistrationDTO")
   public UserRegistrationDTO userRegistrationDTO() {
     return new UserRegistrationDTO();
   }
+
+
+
 
 
 

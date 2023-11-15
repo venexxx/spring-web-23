@@ -14,7 +14,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity,Long> {
 
 
 
-    @Query(value = "select * from offers where offers.is_itvip is true", nativeQuery = true)
+    @Query(value = "select o.id,o.axles,o.moto_hours, o.condition_name,o.cubic_centimeters,o.description,o.engine,o.horse_power,o.image_url,o.second_image_url,o.mileage,o.price,o.transmission,o.year,o.model_id,o.post_by_id,o.standard_id,o.is_itvip from offers as o join users as u on o.post_by_id = u.id where u.role_id = 2", nativeQuery = true)
     List<OfferEntity> findAllVIPOffers();
 
 

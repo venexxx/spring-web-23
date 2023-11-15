@@ -25,4 +25,8 @@ public interface UserService {
     void unbanUser(Long id);
 
     List<String> deleteBannedUsers();
+
+  void makeUserVip(Long id);
+
+  void makeUserUser(Long id);
 }

@@ -2,12 +2,14 @@ package com.example.model.dto;
 
 
 import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
 
 public class AddCarOfferDTO {
 
     @NotEmpty(message = "Description is required!")
+    @Length(max = 200,message = "Description is too long!")
     private String description;
     @NotEmpty(message = "Brand is required!")
     private String model;

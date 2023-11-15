@@ -60,6 +60,7 @@ public class OfferServiceImpl implements OfferService {
         Set<OfferBidingModel> vips = repository.findAllVIPOffers().stream().map(o -> {
             OfferBidingModel mapOffer = mapper.map(o, OfferBidingModel.class);
             mapOffer.setPostById(o.getPostBy().getId());
+            mapOffer.setVip(true);
             return mapOffer;
 
         }).collect(Collectors.toSet());

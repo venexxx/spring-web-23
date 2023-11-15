@@ -1,6 +1,7 @@
 package com.example.model.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,6 +23,7 @@ public class UserRegistrationDTO {
     private String confirmPassword;
 
     @NotEmpty(message = "Profile image URL  is required!")
+    @Max(value = 200,message = "Profile image URL  is too long!")
     private String profilePictureUrl;
 
     public String getProfilePictureUrl() {
