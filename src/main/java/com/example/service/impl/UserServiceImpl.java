@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void registerUser(
+  public boolean registerUser(
       UserRegistrationDTO userRegistrationDTO) {
-
-    userRepository.save(map(userRegistrationDTO));
+      userRepository.save(map(userRegistrationDTO));
+      return true;
   }
 
   @Override
@@ -144,10 +144,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-    UserRoleEntity role = roleRepository.getReferenceById(3L);
-    role.setRole(UserRoleEnum.USER);
-    List<UserRoleEntity> roles = new ArrayList<>();
-    roles.add(role);
+
     return new UserEntity()
         .setActive(true)
         .setFirstName(userRegistrationDTO.getFirstName())

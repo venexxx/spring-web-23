@@ -65,6 +65,7 @@ public class SecurityConfiguration   {
               .logoutUrl("/users/logout")
               // where to go when logged out?
               .logoutSuccessUrl("/")
+                  .deleteCookies()
               // invalidate the HTTP session
               .invalidateHttpSession(true);
         }).build();

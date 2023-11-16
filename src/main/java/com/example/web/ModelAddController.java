@@ -58,6 +58,14 @@ public class ModelAddController {
     @PostMapping("/model/add")
     public ModelAndView addModel(ModelAndView modelAndView, @Valid AddModelDTO addModelDTO, BindingResult result, RedirectAttributes redirectAttributes){
 
+        if (result.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("addModelDTO", addModelDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addModelDTO", result);
+
+            modelAndView.setViewName("redirect:/model-add");
+            return modelAndView;
+        }
         String category = addModelDTO.getBrand().split(" ")[2];
         String brand = addModelDTO.getBrand().split(" ")[0];
 
@@ -74,14 +82,7 @@ public class ModelAddController {
                             "Model in this brand or category exist."));
 
         }
-        if (result.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute("addModelDTO", addModelDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.addModelDTO", result);
 
-            modelAndView.setViewName("redirect:/model-add");
-            return modelAndView;
-        }
         modelAndView.setViewName("redirect:/");
 
         this.modelService.addModel(addModelDTO);

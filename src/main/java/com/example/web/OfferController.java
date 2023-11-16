@@ -52,7 +52,7 @@ public class OfferController {
 
         Set<BrandAndModelBindingModel> carBrands = brandService.getAllBrandsAndModels(ModelCategoryEnum.CAR);
 
-        EngineEnum[] engines = EngineEnum.values();
+
 
 
         modelAndView.addObject("carBrands",carBrands);
@@ -87,12 +87,12 @@ public class OfferController {
                     .addFlashAttribute("offerAddDTO", offerAddDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.offerAddDTO", result);
 
-            return "redirect:/offers/add-car";
+            return "redirect:/offers/add-truck";
         }
 
         offerService.addTruckOffer(offerAddDTO);
 
-        return  "redirect:/offers/add-truck";
+        return  "redirect:/offers/search/TRUCK";
     }
 
 
@@ -121,12 +121,12 @@ public class OfferController {
                     .addFlashAttribute("offerAddDTO", offerAddDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.offerAddDTO", result);
 
-            return "redirect:/offers/add-car";
+            return "redirect:/offers/add-motorcycle";
         }
 
         offerService.addMotorcycleOffer(offerAddDTO);
 
-        return  "redirect:/offers/add-motorcycle";
+        return  "redirect:/offers/search/MOTORCYCLE";
     }
 
 
@@ -146,7 +146,7 @@ public class OfferController {
 
         offerService.addCarOffer(offerAddDTO);
 
-        return  "redirect:/offers/add-car";
+        return  "redirect:/offers/search/CAR";
     }
 
     @GetMapping("offers/details/{id}")

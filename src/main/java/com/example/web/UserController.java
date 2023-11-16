@@ -34,7 +34,7 @@ public class UserController {
 
 
   @PostMapping("/register")
-  public String register(@Valid UserRegistrationDTO userRegistrationDTO, BindingResult result, RedirectAttributes redirectAttributes) {
+  public String register(@Valid @ModelAttribute("userRegistrationDTO") UserRegistrationDTO userRegistrationDTO, BindingResult result, RedirectAttributes redirectAttributes) {
 
     boolean userHasUniqueEmail = userService.checkForUniqueEmail(userRegistrationDTO.getEmail());
 

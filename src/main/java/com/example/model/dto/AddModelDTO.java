@@ -1,11 +1,12 @@
 package com.example.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AddModelDTO {
-    @NotBlank(message = "Model name can not be empty!")
+    @NotNull(message = "Model name can not be empty!")
     private String name;
-    @NotBlank(message = "You must to select brand!")
+    @NotNull(message = "You must to select brand!")
     private String brand;
     private String category;
 

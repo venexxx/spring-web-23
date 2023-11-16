@@ -19,6 +19,8 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView home(ModelAndView modelAndView){
+
+
         modelAndView.setViewName("index");
        Set<OfferBidingModel> vipOffers =  offerService.getVipOffers();
        modelAndView.addObject("vipOffers",vipOffers);

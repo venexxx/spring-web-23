@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface UserService {
 
-  void registerUser(UserRegistrationDTO userRegistrationDTO);
+  boolean registerUser(UserRegistrationDTO userRegistrationDTO);
 
   boolean checkForUniqueEmail(String email);
   UserViewDTO getByEmail(String email);
