@@ -20,13 +20,15 @@
 
 <div class="container">
     <h2 class="text-center text-white">Upload Offer</h2>
-    <form method="POST" 
+    <form
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="modelId">Model</label>
                 <select id="modelId"
+                        th:field="*{}"
+                        th:errorclass="'is-invalid bg-danger'"
 
                         class="form-control">
                     <option value="">- Select a model -</option>

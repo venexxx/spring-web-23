@@ -12,10 +12,6 @@ public class UserEntity extends BaseEntity{
   private String email;
 
   @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "users_roles",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id"))
   private List<UserRoleEntity> roles = new ArrayList<>();
 
 

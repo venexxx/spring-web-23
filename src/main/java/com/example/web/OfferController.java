@@ -84,8 +84,8 @@ public class OfferController {
 
         if (result.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("offerAddDTO", offerAddDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.offerAddDTO", result);
+                    .addFlashAttribute("addTruckDto", offerAddDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addTruckDto", result);
 
             return "redirect:/offers/add-truck";
         }
@@ -118,8 +118,8 @@ public class OfferController {
 
         if (result.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("offerAddDTO", offerAddDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.offerAddDTO", result);
+                    .addFlashAttribute("addMotorcycleDTO", offerAddDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addMotorcycleDTO", result);
 
             return "redirect:/offers/add-motorcycle";
         }
@@ -138,8 +138,8 @@ public class OfferController {
 
         if (result.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("offerAddDTO", offerAddDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.offerAddDTO", result);
+                    .addFlashAttribute("addCarOfferDTO", offerAddDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addCarOfferDTO", result);
 
             return "redirect:/offers/add-car";
         }
@@ -232,8 +232,6 @@ public class OfferController {
     public AddCarOfferDTO addCarOfferDTO() {
         return new AddCarOfferDTO();
     }
-
-
 
 
 
