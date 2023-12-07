@@ -56,7 +56,7 @@ public class RoleInit implements CommandLineRunner {
 
         }
 
-        repository.saveAll(roles);
+
 
     }
 }
